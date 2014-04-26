@@ -30,7 +30,7 @@ public class BooksTest {
 		final Book book3 = new Book(3, "C");
 		books.createBookWithoutTx(book3);
 		final Book bookAfterCommit = new Book(55, "AFTER COMMIT");
-		books.createBookWithoutTx(bookAfterCommit);
+		books.triggerCreatePostCommit(bookAfterCommit);
 		final Book book4 = new Book(4, "D");
 		books.createBook(book4);
 		
@@ -52,7 +52,5 @@ public class BooksTest {
 		thread.start();
 		thread.join();
 		
-		
-		System.out.println("Working");
 	}
 }

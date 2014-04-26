@@ -48,8 +48,11 @@ public class BookServiceImpl implements BookService {
 		
 		TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
 			@Override
-			public void afterCommit() {
-				BookServiceHelper.getInstance().getBookService().createBookWithoutTx(book);
+			public void afterCompletion(int status) {
+				if (status == TransactionSynchronization.STATUS_COMMITTED) {
+					System.out.println("During After completion");
+					BookServiceHelper.getInstance().getBookService().createBookWithoutTx(book);
+				}
 			}
 		});
 	}
