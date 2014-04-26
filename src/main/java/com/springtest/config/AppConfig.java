@@ -11,13 +11,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @Configuration
 @ComponentScan(basePackages = { "com.springtest" })
 @PropertySource(value = { "classpath:application.properties" })
-@EnableScheduling
 @EnableAspectJAutoProxy
 @EnableCaching
 public class AppConfig {
