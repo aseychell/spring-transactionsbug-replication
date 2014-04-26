@@ -12,7 +12,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 
-
 @Configuration
 @ComponentScan(basePackages = { "com.springtest" })
 @PropertySource(value = { "classpath:application.properties" })

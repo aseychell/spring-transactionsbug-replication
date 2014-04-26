@@ -56,6 +56,7 @@ public class PersistenceConfig {
 		jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 		jpaProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		jpaProperties.put("hibernate.ejb.entitymanager_factory_name", env.getProperty("hibernate.dialect"));
+
 		factory.setJpaProperties(jpaProperties);
 		factory.afterPropertiesSet();
 		factory.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
@@ -81,7 +82,7 @@ public class PersistenceConfig {
 	public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
 		DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 		dataSourceInitializer.setDataSource(dataSource);
-		
+
 		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 		databasePopulator.addScript(new ClassPathResource("db.sql"));
 		dataSourceInitializer.setDatabasePopulator(databasePopulator);
