@@ -10,4 +10,6 @@ public interface BookService {
 	
 	Book lookupBookById(long id);
 	
+	void triggerCreatePostCommit(Book book);
+	
 }
