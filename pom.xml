@@ -141,7 +141,6 @@
 	<build>
 		<finalName>tastebox</finalName>
 		<plugins>
-			<!-- compiler插件, 设定JDK版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
