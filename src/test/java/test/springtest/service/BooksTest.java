@@ -9,12 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.springtest.config.AppConfig;
-import com.springtest.config.PersistenceConfig;
 import com.springtest.data.Book;
 import com.springtest.service.BookService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={AppConfig.class, PersistenceConfig.class})
+@ContextConfiguration(classes = { AppConfig.class })
 public class BooksTest {
 
 	@Autowired

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BookRepository {
 
-	@PersistenceContext(unitName="defaultPU")
+	@PersistenceContext
 	private EntityManager em;
 	
 	public void create(Book book) {

@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-import org.springframework.transaction.support.TransactionSynchronizationUtils;
 
 import com.springtest.data.Book;
 import com.springtest.data.BookRepository;
@@ -44,6 +43,7 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public void triggerCreatePostCommit(final Book book) {
+		lookupBookById(book.getId());
 		System.out.println("During Original TX");
 		
 		TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {

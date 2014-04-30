@@ -4,7 +4,7 @@
  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
  
-	<persistence-unit name="defaultPU" transaction-type="JTA">
+	<persistence-unit name="default" transaction-type="JTA">
 	    <provider>org.hibernate.ejb.HibernatePersistence</provider>
 	    <jta-data-source>default</jta-data-source>
 	    <exclude-unlisted-classes>true</exclude-unlisted-classes>
