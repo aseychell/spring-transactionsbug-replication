@@ -43,14 +43,14 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public void triggerCreatePostCommit(final Book book) {
+		
+		// Lookup book to make sure we are using the enitity manager/repository
 		lookupBookById(book.getId());
-		System.out.println("During Original TX");
 		
 		TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
 			@Override
 			public void afterCompletion(int status) {
 				if (status == TransactionSynchronization.STATUS_COMMITTED) {
-					System.out.println("During After completion");
 					BookServiceHelper.getInstance().getBookService().createBookWithoutTx(book);
 				}
 			}

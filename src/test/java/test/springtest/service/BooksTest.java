@@ -1,6 +1,7 @@
 package test.springtest.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.springtest.Reference;
 import com.springtest.config.AppConfig;
 import com.springtest.data.Book;
 import com.springtest.service.BookService;
@@ -28,6 +30,7 @@ public class BooksTest {
 
 		final Book book3 = new Book(3, "C");
 		books.createBookWithoutTx(book3);
+		
 		final Book bookAfterCommit = new Book(55, "AFTER COMMIT");
 		books.triggerCreatePostCommit(bookAfterCommit);
 		final Book book4 = new Book(4, "D");
@@ -35,21 +38,31 @@ public class BooksTest {
 		
 		assertEquals(book1, books.lookupBookById(1));
 		assertEquals(book2, books.lookupBookById(2));
+		
+		// Book triggered post commit is found
+		assertEquals(bookAfterCommit, books.lookupBookById(55));
+		// Books after the post commit are not found within the same thread.
 		assertEquals(book4, books.lookupBookById(4));
+		// Even the older ones
 		assertEquals(book3, books.lookupBookById(3));
+		
+		final Reference<Boolean> foundBook4 = new Reference<Boolean>(false);
+		final Reference<Boolean> foundBookAfterCommit = new Reference<Boolean>(false);
 		
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
-				System.out.println("Starting Thread");
-				assertEquals(book3, books.lookupBookById(3));
-				assertEquals(book4, books.lookupBookById(4));
-				System.out.println("Lookup in Thread ok");
+				// Books are not found however while executing in a separate thread (not even in DB)
+				foundBook4.set(books.lookupBookById(4) != null);
+				foundBookAfterCommit.set(books.lookupBookById(55) != null);
 			}
 		};
 		
 		thread.start();
 		thread.join();
+		
+		assertTrue(foundBookAfterCommit.get());
+		assertTrue(foundBook4.get());
 		
 	}
 }
