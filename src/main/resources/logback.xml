@@ -9,7 +9,7 @@
 	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>target/logs/transactionsbug.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/transactionsbug.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>target/logs/transactionsbug.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
